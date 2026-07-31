@@ -1,18 +1,16 @@
 /* ============================================================
    Chaya Fiedler — site behavior
-   ------------------------------------------------------------
-   ⚠️  SET THESE TWO VALUES BEFORE GOING LIVE  ⚠️
-   See README.md for the 3-minute Formspree walkthrough.
    ============================================================ */
 
-/* 1. Paste the Formspree endpoint here, e.g.
-      "https://formspree.io/f/xabcdefg"
-      Leave it "" and the forms fall back to opening the
-      visitor's email app instead (still works, just clunkier). */
-const FORM_ENDPOINT = "";
+/* Submissions go to Chaya's inbox via FormSubmit — no account, no
+   dashboard, her address is the endpoint. Once she's confirmed the
+   activation email, swap the address here for the random token
+   FormSubmit gives her, so scrapers can't read it off the page. */
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/chaya.holisticrn@gmail.com";
 
-/* 2. Chaya's email — used for the fallback above and nowhere else. */
-const CONTACT_EMAIL = "";
+/* Only used if FORM_ENDPOINT is ever emptied — then the forms hand off
+   to the visitor's own mail app instead. */
+const CONTACT_EMAIL = "chaya.holisticrn@gmail.com";
 
 const CONTACT_PHONE = "718-607-7445";
 
@@ -111,7 +109,7 @@ const CONTACT_PHONE = "718-607-7445";
       e.preventDefault();
 
       // honeypot — bots fill hidden fields, people don't
-      if (form.querySelector('[name="_gotcha"]').value) return;
+      if (form.querySelector('[name="_honey"]').value) return;
 
       const data = new FormData(form);
       let firstBad = null;
@@ -145,6 +143,13 @@ const CONTACT_PHONE = "718-607-7445";
         });
 
         if (!res.ok) throw new Error("Request failed: " + res.status);
+
+        // FormSubmit answers 200 even when it refused the submission
+        // (unactivated form, blocked origin) — the body is the real verdict.
+        const result = await res.json().catch(() => ({}));
+        if (String(result.success) !== "true") {
+          throw new Error(result.message || "Submission rejected");
+        }
 
         form.reset();
         say(

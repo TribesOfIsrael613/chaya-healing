@@ -8,7 +8,7 @@ Plain HTML/CSS/JS — no build step, no dependencies. Open `index.html` and it w
 ```
 index.html      all page content
 styles.css      all styling
-script.js       nav, scroll reveal, form handling  ← two values to fill in at the top
+script.js       nav, scroll reveal, form handling  (FormSubmit endpoint at the top)
 assets/         favicon (drop og-image.jpg here too)
 ```
 
@@ -16,28 +16,26 @@ assets/         favicon (drop og-image.jpg here too)
 
 ## Before it goes live — 3 things
 
-### 1. Make the forms actually deliver (5 minutes)
+### 1. Activate the forms  ← ONLY REMAINING BLOCKER
 
-Right now the two forms (workshop signup + contact) validate but have nowhere to
-send to. Easiest fix, free, no server:
+Both forms POST to [FormSubmit](https://formsubmit.co), which forwards straight to
+`chaya.holisticrn@gmail.com`. No account, no dashboard — her address is the endpoint.
 
-1. Go to [formspree.io](https://formspree.io) and sign up with Chaya's email.
-2. Create a new form. Copy the endpoint it gives you — looks like
-   `https://formspree.io/f/xabcdefg`.
-3. Open `script.js` and set:
-   ```js
-   const FORM_ENDPOINT = "https://formspree.io/f/xabcdefg";
-   const CONTACT_EMAIL = "chaya@herdomain.com";
-   ```
-4. Submit the form once yourself — Formspree emails a one-time confirmation link.
+A test submission was sent on 2026-07-31, so **FormSubmit has emailed her an
+"Activate Form" link. Until she clicks it, every submission is rejected** and the
+visitor sees the "please call or text" error. That is the one thing standing
+between this site and a working contact form.
 
-Submissions then land in her inbox with the name, email, phone, and message.
-The free tier covers 50/month; if the workshop fills faster than that, the paid
-tier is a few dollars.
+Once she's activated it, FormSubmit shows a random token for the same inbox. Swap
+it into `FORM_ENDPOINT` in `script.js` so her address isn't sitting in the page
+source for scrapers:
 
-**If you skip this:** with `FORM_ENDPOINT` empty but `CONTACT_EMAIL` set, the forms
-open the visitor's own email app with everything pre-filled. With both empty, the
-form tells them to call instead. Neither is as good as the real thing.
+```js
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/<random-token>";
+```
+
+Note FormSubmit answers HTTP 200 even when it rejects a submission — the JSON
+body's `success` field is the real verdict, which is what `script.js` checks.
 
 ### 2. Fill in the workshop details
 
