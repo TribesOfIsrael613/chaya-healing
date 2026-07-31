@@ -49,8 +49,9 @@ pricing are being finalized. Once they're set, replace that line in
 
 These came from the flyers, but double-check with Chaya:
 
-- **$120** — shown on the Emotion Body Belief Code flyer; the site presents it as
-  the price for all session types. Fix if Food Codes / Heart Wall differ.
+- **$150** — Chaya's current price, confirmed 2026-07-31. (Her flyer still says
+  $120, so the printed flyers are now out of date.) The site applies $150 to all
+  session types — fix if Food Codes / Heart Wall differ.
 - **Brooklyn, NY** — inferred from the 718 number. Change in the "What a session
   looks like" and Contact sections if that's wrong.
 - **Phone/video sessions, ~1 hour** — standard for this work, but not stated on
