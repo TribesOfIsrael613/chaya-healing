@@ -50,8 +50,8 @@ These came from the flyers, but double-check with Chaya:
 - **$150** — Chaya's current price, confirmed 2026-07-31. (Her flyer still says
   $120, so the printed flyers are now out of date.) The site applies $150 to all
   session types — fix if Food Codes / Heart Wall differ.
-- **Brooklyn, NY** — inferred from the 718 number. Change in the "What a session
-  looks like" and Contact sections if that's wrong.
+- **Woodmere, NY** — confirmed 2026-07-31. (Brooklyn was a wrong guess from the 718
+  number.) Appears in the "What a session looks like" and Contact sections.
 - **Phone/video sessions, ~1 hour** — standard for this work, but not stated on
   any flyer. Confirm before publishing.
 - **The Monthly Reset** — mentioned in Mindy's testimonial, so the site references
